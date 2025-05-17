@@ -5,9 +5,12 @@ const app = express();
 const port = 8855;
 const mysqlConnection = require('./db/dbConnection.js');
 const {routes} = require('./routes/User.js');
+const {rateLimiter} = require('./middleware/rate-limiter.js');
 
 app.use(cors());
 app.use(bodyparser.json());
+
+app.use(rateLimiter);
 
 app.get('/',(req,res)=>{
     return res.status(200).send(`<h1>Home Page</h1>`)

@@ -1,5 +1,7 @@
 const mysql = require('../db/dbConnection.js');
 const bcrypt = require('bcrypt');
+const dotenv = require('dotenv');
+dotenv.config();
 
 const SignUp=({name,email,password})=>{
 
@@ -15,7 +17,7 @@ return new Promise((resolve,reject)=>{
             return resolve({success:false,message:'Email already exists'});
         }
         else{
-            bcrypt.hash(password,10,(hasherr,hashpassword)=>{
+            bcrypt.hash(password,Number(process.env.SALT_ROUND),(hasherr,hashpassword)=>{
                 if(hasherr){
                     console.log('hash error----->',err);
                     reject(err);

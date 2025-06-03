@@ -6,9 +6,11 @@ const port = 8855;
 const mysqlConnection = require('./db/dbConnection.js');
 const {routes} = require('./routes/User.js');
 const {rateLimiter} = require('./middleware/rate-limiter.js');
+const helmet = require('helmet');
 
 app.use(cors());
 app.use(bodyparser.json());
+app.use(helmet())
 
 app.use(rateLimiter);
 

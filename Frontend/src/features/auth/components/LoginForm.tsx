@@ -2,7 +2,9 @@ import React from 'react';
 
 const LoginForm=()=>{
 return(
-    <h1>Login Form</h1>
+     <h1 className="text-3xl font-bold underline">
+       Login Page
+       </h1>
 )
 }
 export default LoginForm;

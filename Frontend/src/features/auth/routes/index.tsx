@@ -6,7 +6,7 @@ const SignUp=lazy(()=> import('../pages/SignUp.tsx'));
 const AuthRoute=()=>{
 return (
     <Routes>
-    <Route element={<Login />} path='/login'></Route>
+    <Route element={<Login />} path='/'></Route>
     <Route element={<SignUp />} path='/signup'></Route>
     </Routes>      
 )

@@ -1,65 +1,137 @@
-import React from 'react';
+import { useFormik } from 'formik';
+import * as Yup from 'yup';
 import { useNavigate } from 'react-router-dom';
 
-const SignUpForm = () => {
-    const navigate = useNavigate();
-    return (
-        <form>
-            <div className="flex flex-col items-center justify-center px-6 py-8 mx-auto lg:py-0">
-                <div className="w-full bg-white rounded-lg shadow border md:mt-0 sm:max-w-md xl:p-0">
-                    <div className="p-6 space-y-4 md:space-y-6 sm:p-8">
-                        <p className="text-xl font-bold leading-tight tracking-tight text-gray-900 md:text-2xl">
-                            Create an account
-                        </p>
-                        <div>
-                            <label className="block mb-2 text-sm font-medium text-gray-900">
-                             Name
-                            </label>
-                            <input placeholder="Enter Name" className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg block w-full p-2.5" id="username" type="text" />
-                        </div>
-                         <div>
-                            <label className="block mb-2 text-sm font-medium text-gray-900">
-                             Email
-                            </label>
-                            <input placeholder="Enter Email" className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg block w-full p-2.5" id="username" type="text" />
-                        </div>
-                        <div>
-                            <label className="block mb-2 text-sm font-medium text-gray-900">
-                                Password
-                            </label>
-                            <input className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg block w-full p-2.5" placeholder="••••••••" id="password" type="password" />
-                        </div>
-                        <div>
-                            <label className="block mb-2 text-sm font-medium text-gray-900">
-                                Confirm password
-                            </label>
-                            <input className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg block w-full p-2.5" placeholder="••••••••" id="confirmPassword" type="password" />
-                        </div>
-                        <div className="flex items-start">
-                            <div className="flex items-center h-5">
-                                <input className="w-4 h-4 border border-gray-300 rounded bg-gray-50 focus:ring-3 focus:ring-primary-300 bg-gray-700 border-gray-600 focus:ring-primary-600 ring-offset-gray-800" type="checkbox" aria-describedby="terms" id="terms" />
-                            </div>
-                            <div className="ml-3 text-sm">
-                                <label className="font-light text-gray-500 text-gray-300">
-                                    I accept the
-                                    <a href="#" className="font-medium text-primary-600 hover:underline text-primary-500">
-                                        Terms and Conditions
-                                    </a>
-                                </label>
-                            </div>
-                        </div>
+const SignupSchema = Yup.object().shape({
+  name: Yup.string().required('Name is required').max(10, 'Name can’t be more than 10 characters'),
+  email: Yup.string().email('Invalid email').required('Email is required'),
+  password: Yup.string().required('Password is required'),
+  confirmPassword: Yup.string()
+    .oneOf([Yup.ref('password')], 'Passwords must match')
+    .required('Confirm password is required'),
+});
 
-                        <p className='text-center text-sm text-gray-600 cursor-pointer hover:text-blue-800' onClick={() => navigate('/')}>Already have an account? Login</p>
+const SignupForm = () => {
+  const navigate = useNavigate();
 
-                        <button className="w-full bg-blue-500 hover:bg-blue-700 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center  focus:ring-blue-800 text-white" type="submit">
-                            Create an account
-                        </button>
+  const formik = useFormik({
+    initialValues: {
+      name: '',
+      email: '',
+      password: '',
+      confirmPassword: '',
+    },
+    validationSchema: SignupSchema,
+    onSubmit: (values) => {
+      console.log('Form submitted:', values);
+      // You can handle submit logic here
+    },
+  });
 
-                    </div>
-                </div>
+  return (
+    <form onSubmit={formik.handleSubmit}>
+      <div className="flex flex-col items-center justify-center px-6 py-8 mx-auto lg:py-0 min-w-150 max-w-300">
+        <div className="w-full bg-white rounded-lg shadow border md:mt-0 sm:max-w-md xl:p-0">
+          <div className="p-6 space-y-4 md:space-y-6 sm:p-8">
+            <p className="text-xl font-bold leading-tight tracking-tight text-gray-900 md:text-2xl">
+              Create an account
+            </p>
+
+            {/* Name */}
+            <div>
+              <label className="block mb-2 text-sm font-medium text-gray-900">Name</label>
+              <input
+                placeholder="Enter Name"
+                autoComplete="off"
+                id="name"
+                name="name"
+                value={formik.values.name}
+                onChange={formik.handleChange}
+                onBlur={formik.handleBlur}
+                className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg block w-full p-2.5"
+                type="text"
+              />
+              {formik.touched.name && formik.errors.name && (
+                <div className="text-red-500 text-sm mt-1">{formik.errors.name}</div>
+              )}
             </div>
-        </form>
 
-    )
-}
-export default SignUpForm;
+            {/* Email */}
+            <div>
+              <label className="block mb-2 text-sm font-medium text-gray-900">Email</label>
+              <input
+                placeholder="Enter Email"
+                autoComplete="off"
+                id="email"
+                name="email"
+                value={formik.values.email}
+                onChange={formik.handleChange}
+                onBlur={formik.handleBlur}
+                className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg block w-full p-2.5"
+                type="email"
+              />
+              {formik.touched.email && formik.errors.email && (
+                <div className="text-red-500 text-sm mt-1">{formik.errors.email}</div>
+              )}
+            </div>
+
+            {/* Password */}
+            <div>
+              <label className="block mb-2 text-sm font-medium text-gray-900">Password</label>
+              <input
+                placeholder="••••••••"
+                autoComplete="off"
+                id="password"
+                name="password"
+                value={formik.values.password}
+                onChange={formik.handleChange}
+                onBlur={formik.handleBlur}
+                className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg block w-full p-2.5"
+                type="password"
+              />
+              {formik.touched.password && formik.errors.password && (
+                <div className="text-red-500 text-sm mt-1">{formik.errors.password}</div>
+              )}
+            </div>
+
+            {/* Confirm Password */}
+            <div>
+              <label className="block mb-2 text-sm font-medium text-gray-900">Confirm password</label>
+              <input
+                placeholder="••••••••"
+                autoComplete="off"
+                id="confirmPassword"
+                name="confirmPassword"
+                value={formik.values.confirmPassword}
+                onChange={formik.handleChange}
+                onBlur={formik.handleBlur}
+                className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg block w-full p-2.5"
+                type="password"
+              />
+              {formik.touched.confirmPassword && formik.errors.confirmPassword && (
+                <div className="text-red-500 text-sm mt-1">{formik.errors.confirmPassword}</div>
+              )}
+            </div>
+
+            <p
+              className="text-center text-sm text-gray-600 cursor-pointer hover:text-blue-800"
+              onClick={() => navigate('/')}
+            >
+              Already have an account? Login
+            </p>
+
+            <button
+              disabled={!(formik.isValid && formik.dirty)}
+              type="submit"
+              className="w-full bg-blue-500 hover:bg-blue-700 text-white font-medium rounded-lg text-sm px-5 py-2.5 text-center"
+            >
+              Create an account
+            </button>
+          </div>
+        </div>
+      </div>
+    </form>
+  );
+};
+
+export default SignupForm;

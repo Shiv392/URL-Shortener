@@ -1,11 +1,24 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 const SignUpForm = () => {
     const navigate = useNavigate();
+    const [name, setName] = useState('');
+    const [email, setEmail] = useState('');
+    const [password, setPassword] = useState('');
+    const [password2, setPassword2] = useState('');
+
+    const handleSubmit = (e: any) => {
+        e.preventDefault();
+        const formData = {
+            name: name, email: email, password: password
+        }
+        console.log('form data--------->', formData);
+    }
+
     return (
-        <form>
-            <div className="flex flex-col items-center justify-center px-6 py-8 mx-auto lg:py-0">
+        <form onSubmit={handleSubmit}>
+            <div className="flex flex-col items-center justify-center px-6 py-8 mx-auto lg:py-0 min-w-150 max-w-300">
                 <div className="w-full bg-white rounded-lg shadow border md:mt-0 sm:max-w-md xl:p-0">
                     <div className="p-6 space-y-4 md:space-y-6 sm:p-8">
                         <p className="text-xl font-bold leading-tight tracking-tight text-gray-900 md:text-2xl">
@@ -13,27 +26,27 @@ const SignUpForm = () => {
                         </p>
                         <div>
                             <label className="block mb-2 text-sm font-medium text-gray-900">
-                             Name
+                                Name
                             </label>
-                            <input placeholder="Enter Name" className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg block w-full p-2.5" id="username" type="text" />
+                            <input placeholder="Enter Name" autoComplete='off' value={name} onChange={(e) => setName(e.target.value)} className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg block w-full p-2.5" id="username" type="text" />
                         </div>
-                         <div>
+                        <div>
                             <label className="block mb-2 text-sm font-medium text-gray-900">
-                             Email
+                                Email
                             </label>
-                            <input placeholder="Enter Email" className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg block w-full p-2.5" id="username" type="text" />
+                            <input placeholder="Enter Email" autoComplete='off' value={email} onChange={(e) => setEmail(e.target.value)} className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg block w-full p-2.5" id="username" type="text" />
                         </div>
                         <div>
                             <label className="block mb-2 text-sm font-medium text-gray-900">
                                 Password
                             </label>
-                            <input className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg block w-full p-2.5" placeholder="••••••••" id="password" type="password" />
+                            <input value={password} autoComplete='off' onChange={(e) => setPassword(e.target.value)} className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg block w-full p-2.5" placeholder="••••••••" id="password" type="password" />
                         </div>
                         <div>
                             <label className="block mb-2 text-sm font-medium text-gray-900">
                                 Confirm password
                             </label>
-                            <input className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg block w-full p-2.5" placeholder="••••••••" id="confirmPassword" type="password" />
+                            <input value={password2} autoComplete='off' onChange={(e) => setPassword2(e.target.value)} className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg block w-full p-2.5" placeholder="••••••••" id="confirmPassword" type="password" />
                         </div>
                         <div className="flex items-start">
                             <div className="flex items-center h-5">

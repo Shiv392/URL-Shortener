@@ -24,7 +24,7 @@ const LoginForm = () => {
   return (
     <section>
       <div
-        className="flex bg-white items-center justify-center px-4 py-10 sm:px-6 sm:py-16 lg:px-8 lg:py-8"
+        className="flex bg-white items-center justify-center px-4 py-5 sm:px-6 sm:py-10 lg:px-5 lg:py-5"
       >
         <div className="xl:mx-auto xl:w-full shadow-md p-4 xl:max-w-sm 2xl:max-w-md">
           <div className="mb-2 flex justify-center"></div>
@@ -84,7 +84,7 @@ const LoginForm = () => {
                   />
                   {
                     login_formik.touched.password && login_formik.errors.password && (
-                      <div className='text-red-500 text-sm mt-1'>{login_formik.errors.password}</div>
+                      <div className='text-red-400 text-sm mt-1'>{login_formik.errors.password}</div>
                     )
                   }
                 </div>

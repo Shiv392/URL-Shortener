@@ -51,6 +51,11 @@ const LoginForm = () => {
                     onBlur={login_formik.handleBlur}
                     className="flex h-10 w-full rounded-md border border-gray-300 bg-transparent px-3 py-2 text-sm text-black placeholder:text-gray-400 focus:outline-none focus:border-none focus:ring-1 focus:ring-gray-400 focus:ring-offset-1"
                   />
+                  {
+                    login_formik.touched.email && login_formik.errors.email && (
+                      <div className='text-red-500 text-sm mt-1'>{login_formik.errors.email}</div>
+                    )
+                  }
                 </div>
               </div>
               <div>
@@ -77,11 +82,16 @@ const LoginForm = () => {
                     value={login_formik.values.password}
                     className="flex h-10 w-full rounded-md border border-gray-300 bg-transparent px-3 py-2 text-sm text-black placeholder:text-gray-400 focus:outline-none focus:border-none focus:ring-1 focus:ring-gray-400 focus:ring-offset-1"
                   />
+                  {
+                    login_formik.touched.password && login_formik.errors.password && (
+                      <div className='text-red-500 text-sm mt-1'>{login_formik.errors.password}</div>
+                    )
+                  }
                 </div>
               </div>
               <div>
                 <button
-                  className="inline-flex w-full items-center justify-center rounded-md bg-black px-3.5 py-2.5 font-semibold leading-7  hover:bg-black/80"
+                  className="inline-flex cursor-pointer w-full items-center justify-center rounded-md bg-black px-3.5 py-2.5 font-semibold leading-7  hover:bg-black/80"
                   type="submit" disabled={!(login_formik.isValid && login_formik.dirty)}
                 >
                   Get started
@@ -91,7 +101,7 @@ const LoginForm = () => {
           </form>
           <div className="mt-3 space-y-3">
             <button
-              className="relative inline-flex w-full items-center justify-center rounded-md border border-gray-400 bg-white px-3.5 py-2.5 font-semibold text-gray-700 transition-all duration-200 hover:bg-gray-100 hover:text-black focus:bg-gray-100 focus:text-black focus:outline-none"
+              className="relative cursor-pointer inline-flex w-full items-center justify-center rounded-md border border-gray-400 bg-white px-3.5 py-2.5 font-semibold text-gray-700 transition-all duration-200 hover:bg-gray-100 hover:text-black focus:bg-gray-100 focus:text-black focus:outline-none"
               type="button"
             >
               <span className="mr-2 inline-block">

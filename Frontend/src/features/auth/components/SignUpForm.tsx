@@ -79,7 +79,7 @@ const SignupForm = () => {
             <div>
               <label className="block mb-2 text-sm font-medium text-gray-900">Password</label>
               <input
-                placeholder="••••••••"
+                placeholder="Enter Password"
                 autoComplete="off"
                 id="password"
                 name="password"
@@ -98,7 +98,7 @@ const SignupForm = () => {
             <div>
               <label className="block mb-2 text-sm font-medium text-gray-900">Confirm password</label>
               <input
-                placeholder="••••••••"
+                placeholder="Confirm Password"
                 autoComplete="off"
                 id="confirmPassword"
                 name="confirmPassword"

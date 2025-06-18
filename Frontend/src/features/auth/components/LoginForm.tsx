@@ -10,7 +10,7 @@ const loginSchema = Yup.object().shape({
 const LoginForm = () => {
 
   const navigate = useNavigate();
-  const formik = useFormik({
+  const login_formik = useFormik({
     initialValues: {
       email: '',
       password: ''
@@ -19,7 +19,7 @@ const LoginForm = () => {
     onSubmit: (values) => {
       console.log('login form details ---------->', values);
     }
-  })
+  });
 
   return (
     <section>
@@ -34,7 +34,7 @@ const LoginForm = () => {
           <p className="mt-2 text-center text-sm text-gray-600 cursor-pointer hover:text-blue-800" onClick={() => navigate('/signup')}>
             Don't have an account? Create a free account
           </p>
-          <form className="mt-8" onSubmit={formik.handleSubmit}>
+          <form className="mt-8" onSubmit={login_formik.handleSubmit}>
             <div className="space-y-5">
               <div>
                 <label className="text-base font-medium text-gray-900 flex item-center justify-start">
@@ -46,11 +46,16 @@ const LoginForm = () => {
                     name='email'
                     placeholder="Enter Email"
                     type="email"
-                    value={formik.values.email}
-                    onChange={formik.handleChange}
-                    onBlur={formik.handleBlur}
-                    className="flex h-10 w-full rounded-md border border-gray-300 bg-transparent px-3 py-2 text-sm placeholder:text-gray-400 focus:outline-none focus:ring-1 focus:ring-gray-400 focus:ring-offset-1 disabled:cursor-not-allowed disabled:opacity-50"
+                    value={login_formik.values.email}
+                    onChange={login_formik.handleChange}
+                    onBlur={login_formik.handleBlur}
+                    className="flex h-10 w-full rounded-md border border-gray-300 bg-transparent px-3 py-2 text-sm text-black placeholder:text-gray-400 focus:outline-none focus:border-none focus:ring-1 focus:ring-gray-400 focus:ring-offset-1"
                   />
+                  {
+                    login_formik.touched.email && login_formik.errors.email && (
+                      <div className='text-red-500 text-sm mt-1'>{login_formik.errors.email}</div>
+                    )
+                  }
                 </div>
               </div>
               <div>
@@ -72,17 +77,22 @@ const LoginForm = () => {
                     name="password"
                     placeholder="Enter Password"
                     type="password"
-                    onChange={formik.handleChange}
-                    onBlur={formik.handleBlur}
-                    value={formik.values.password}
-                    className="flex h-10 w-full rounded-md border border-gray-300 bg-transparent px-3 py-2 text-sm placeholder:text-gray-400 focus:outline-none focus:ring-1 focus:ring-gray-400 focus:ring-offset-1 disabled:cursor-not-allowed disabled:opacity-50"
+                    onChange={login_formik.handleChange}
+                    onBlur={login_formik.handleBlur}
+                    value={login_formik.values.password}
+                    className="flex h-10 w-full rounded-md border border-gray-300 bg-transparent px-3 py-2 text-sm text-black placeholder:text-gray-400 focus:outline-none focus:border-none focus:ring-1 focus:ring-gray-400 focus:ring-offset-1"
                   />
+                  {
+                    login_formik.touched.password && login_formik.errors.password && (
+                      <div className='text-red-500 text-sm mt-1'>{login_formik.errors.password}</div>
+                    )
+                  }
                 </div>
               </div>
               <div>
                 <button
-                  className="inline-flex w-full items-center justify-center rounded-md bg-black px-3.5 py-2.5 font-semibold leading-7  hover:bg-black/80"
-                  type="submit" disabled={!(formik.isValid && formik.dirty)}
+                  className="inline-flex cursor-pointer w-full items-center justify-center rounded-md bg-black px-3.5 py-2.5 font-semibold leading-7  hover:bg-black/80"
+                  type="submit" disabled={!(login_formik.isValid && login_formik.dirty)}
                 >
                   Get started
                 </button>
@@ -91,7 +101,7 @@ const LoginForm = () => {
           </form>
           <div className="mt-3 space-y-3">
             <button
-              className="relative inline-flex w-full items-center justify-center rounded-md border border-gray-400 bg-white px-3.5 py-2.5 font-semibold text-gray-700 transition-all duration-200 hover:bg-gray-100 hover:text-black focus:bg-gray-100 focus:text-black focus:outline-none"
+              className="relative cursor-pointer inline-flex w-full items-center justify-center rounded-md border border-gray-400 bg-white px-3.5 py-2.5 font-semibold text-gray-700 transition-all duration-200 hover:bg-gray-100 hover:text-black focus:bg-gray-100 focus:text-black focus:outline-none"
               type="button"
             >
               <span className="mr-2 inline-block">

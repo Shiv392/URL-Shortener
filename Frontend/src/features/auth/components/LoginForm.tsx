@@ -18,22 +18,20 @@ const LoginForm = () => {
     validationSchema: loginSchema,
     onSubmit: (values) => {
       console.log('login form details ---------->', values);
-    }
+    },
+    validateOnMount:true
   });
 
   return (
     <section>
       <div
-        className="flex bg-white items-center justify-center px-4 py-10 sm:px-6 sm:py-16 lg:px-8 lg:py-8"
+        className="flex bg-white items-center justify-center px-4 py-5 sm:px-6 sm:py-10 lg:px-5 lg:py-5"
       >
         <div className="xl:mx-auto xl:w-full shadow-md p-4 xl:max-w-sm 2xl:max-w-md">
           <div className="mb-2 flex justify-center"></div>
           <h2 className="text-center text-2xl font-bold leading-tight text-black">
             Sign in to your account
           </h2>
-          <p className="mt-2 text-center text-sm text-gray-600 cursor-pointer hover:text-blue-800" onClick={() => navigate('/signup')}>
-            Don't have an account? Create a free account
-          </p>
           <form className="mt-8" onSubmit={login_formik.handleSubmit}>
             <div className="space-y-5">
               <div>
@@ -84,7 +82,7 @@ const LoginForm = () => {
                   />
                   {
                     login_formik.touched.password && login_formik.errors.password && (
-                      <div className='text-red-500 text-sm mt-1'>{login_formik.errors.password}</div>
+                      <div className='text-red-400 text-sm mt-1'>{login_formik.errors.password}</div>
                     )
                   }
                 </div>
@@ -92,14 +90,13 @@ const LoginForm = () => {
               <div>
                 <button
                   className="inline-flex cursor-pointer w-full items-center justify-center rounded-md bg-black px-3.5 py-2.5 font-semibold leading-7  hover:bg-black/80"
-                  type="submit" disabled={!(login_formik.isValid && login_formik.dirty)}
+                  type="submit" disabled={!login_formik.isValid}
                 >
                   Get started
                 </button>
               </div>
             </div>
-          </form>
-          <div className="mt-3 space-y-3">
+                      <div className="mt-3 space-y-3">
             <button
               className="relative cursor-pointer inline-flex w-full items-center justify-center rounded-md border border-gray-400 bg-white px-3.5 py-2.5 font-semibold text-gray-700 transition-all duration-200 hover:bg-gray-100 hover:text-black focus:bg-gray-100 focus:text-black focus:outline-none"
               type="button"
@@ -119,6 +116,10 @@ const LoginForm = () => {
               Sign in with Google
             </button>
           </div>
+          </form>
+          <p className="mt-4 text-center text-sm text-gray-600 cursor-pointer hover:text-blue-800" onClick={() => navigate('/signup')}>
+            Don't have an account? Create a free account
+          </p>
         </div>
       </div>
     </section>

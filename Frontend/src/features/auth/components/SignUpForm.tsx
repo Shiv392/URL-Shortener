@@ -26,6 +26,7 @@ const SignupForm = () => {
       console.log('Form submitted:', values);
       // You can handle submit logic here
     },
+    validateOnMount:true
   });
 
   return (
@@ -113,21 +114,20 @@ const SignupForm = () => {
               )}
             </div>
 
-            <p
-              className="text-center text-sm text-gray-600 cursor-pointer hover:text-blue-800"
-              onClick={() => navigate('/')}
-            >
-              Already have an account? Login
-            </p>
-
             <button
-              disabled={!(formik.isValid && formik.dirty)}
+              disabled={!formik.isValid}
               type="submit"
               className="w-full bg-blue-500 hover:bg-blue-700 text-white font-medium rounded-lg text-sm px-5 py-2.5 text-center"
             >
               Create an account
             </button>
           </div>
+          <p
+            className="mb-3 text-center text-sm text-gray-600 cursor-pointer hover:text-blue-800"
+            onClick={() => navigate('/')}
+          >
+            Already have an account? Login
+          </p>
         </div>
       </div>
     </form>

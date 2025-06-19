@@ -113,13 +113,6 @@ const SignupForm = () => {
               )}
             </div>
 
-            <p
-              className="text-center text-sm text-gray-600 cursor-pointer hover:text-blue-800"
-              onClick={() => navigate('/')}
-            >
-              Already have an account? Login
-            </p>
-
             <button
               disabled={!(formik.isValid && formik.dirty)}
               type="submit"
@@ -128,6 +121,12 @@ const SignupForm = () => {
               Create an account
             </button>
           </div>
+          <p
+            className="mb-3 text-center text-sm text-gray-600 cursor-pointer hover:text-blue-800"
+            onClick={() => navigate('/')}
+          >
+            Already have an account? Login
+          </p>
         </div>
       </div>
     </form>

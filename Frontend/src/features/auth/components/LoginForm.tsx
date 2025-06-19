@@ -31,9 +31,6 @@ const LoginForm = () => {
           <h2 className="text-center text-2xl font-bold leading-tight text-black">
             Sign in to your account
           </h2>
-          <p className="mt-2 text-center text-sm text-gray-600 cursor-pointer hover:text-blue-800" onClick={() => navigate('/signup')}>
-            Don't have an account? Create a free account
-          </p>
           <form className="mt-8" onSubmit={login_formik.handleSubmit}>
             <div className="space-y-5">
               <div>
@@ -119,6 +116,9 @@ const LoginForm = () => {
               Sign in with Google
             </button>
           </div>
+          <p className="mt-4 text-center text-sm text-gray-600 cursor-pointer hover:text-blue-800" onClick={() => navigate('/signup')}>
+            Don't have an account? Create a free account
+          </p>
         </div>
       </div>
     </section>

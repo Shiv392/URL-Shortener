@@ -5,3 +5,29 @@
   /* text-align: center; */
 }
 
+.input-field {
+  height: 2.5rem;
+  width: 100%;
+  border-radius: 0.375rem;
+  border: 1px solid #d1d5db; /* default gray */
+  background-color: transparent;
+  padding: 0.5rem 0.75rem;
+  font-size: 0.875rem;
+  color: black;
+  outline: none;
+  transition: all 0.2s ease;
+}
+
+.input-field::placeholder {
+  color: #9ca3af;
+}
+
+.input-field:focus {
+  border-color: #9ca3af;
+  box-shadow: 0 0 0 0.5px #9ca3af;
+}
+
+.input-error {
+  border-color: #ef4444 !important; /* red-500 */
+  box-shadow: 0 0 0 0.5px #ef4444;
+}

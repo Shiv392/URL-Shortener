@@ -3,7 +3,7 @@ import { useFormik } from 'formik';
 import * as Yup from 'yup';
 
 const loginSchema = Yup.object().shape({
-  email: Yup.string().required('Email is required').email('Email must be valid'),
+  email: Yup.string().required('Email is required').email('invalid email').matches(/^[^\s@]+@[^\s@]+\.[^\s@]+$/,'invalid email'),
   password: Yup.string().required('Password is required')
 });
 
@@ -55,7 +55,9 @@ const LoginForm = ({ submit, loading, error, success, message }: Props) => {
                     value={login_formik.values.email}
                     onChange={login_formik.handleChange}
                     onBlur={login_formik.handleBlur}
-                    className="flex h-10 w-full rounded-md border border-gray-300 bg-transparent px-3 py-2 text-sm text-black placeholder:text-gray-400 focus:outline-none focus:border-none focus:ring-1 focus:ring-gray-400 focus:ring-offset-1"
+                    className={`input-field ${
+                     login_formik.touched.email && login_formik.errors.email ? 'input-error' : ''
+                     }`}
                   />
                   {
                     login_formik.touched.email && login_formik.errors.email && (
@@ -86,7 +88,9 @@ const LoginForm = ({ submit, loading, error, success, message }: Props) => {
                     onChange={login_formik.handleChange}
                     onBlur={login_formik.handleBlur}
                     value={login_formik.values.password}
-                    className="flex h-10 w-full rounded-md border border-gray-300 bg-transparent px-3 py-2 text-sm text-black placeholder:text-gray-400 focus:outline-none focus:border-none focus:ring-1 focus:ring-gray-400 focus:ring-offset-1"
+                    className={`input-field ${
+                     login_formik.touched.password && login_formik.errors.password ? 'input-error' : ''
+                     }`}
                   />
                   {
                     login_formik.touched.password && login_formik.errors.password && (

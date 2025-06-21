@@ -4,22 +4,22 @@ import { useNavigate } from 'react-router-dom';
 
 const SignupSchema = Yup.object().shape({
   name: Yup.string().required('Name is required').max(10, 'Name can’t be more than 10 characters'),
-  email: Yup.string().email('Invalid email').required('Email is required'),
+  email: Yup.string().email('Invalid email').required('Email is required').matches(/^[^\s@]+@[^\s@]+\.[^\s@]+$/,'invalid email'),
   password: Yup.string().required('Password is required'),
   confirmPassword: Yup.string()
     .oneOf([Yup.ref('password')], 'Passwords must match')
-    .required('Confirm password is required'),
+    .required('Password is required'),
 });
 
 type props = {
-  loading? : boolean
-  success? : boolean
-  message? : string
-  error?   : string | null
-  onsubmit: (formValues: { email: string; password: string,name:string }) => void;
+  loading?: boolean
+  success?: boolean
+  message?: string
+  error?: string | null
+  onsubmit: (formValues: { email: string; password: string, name: string }) => void;
 }
 
-const SignupForm = ({loading,message,error,onsubmit,success} : props) => {
+const SignupForm = ({ loading, message, error, onsubmit, success }: props) => {
   const navigate = useNavigate();
 
   const formik = useFormik({
@@ -34,7 +34,7 @@ const SignupForm = ({loading,message,error,onsubmit,success} : props) => {
       console.log('Form submitted:', values);
       onsubmit(values);
     },
-    validateOnMount:true
+    validateOnMount: true
   });
 
   return (
@@ -57,8 +57,9 @@ const SignupForm = ({loading,message,error,onsubmit,success} : props) => {
                 value={formik.values.name}
                 onChange={formik.handleChange}
                 onBlur={formik.handleBlur}
-                className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg block w-full p-2.5"
                 type="text"
+                className={`input-field ${formik.touched.name && formik.errors.name ? 'input-error' : ''
+                  }`}
               />
               {formik.touched.name && formik.errors.name && (
                 <div className="text-red-500 text-sm mt-1">{formik.errors.name}</div>
@@ -76,7 +77,8 @@ const SignupForm = ({loading,message,error,onsubmit,success} : props) => {
                 value={formik.values.email}
                 onChange={formik.handleChange}
                 onBlur={formik.handleBlur}
-                className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg block w-full p-2.5"
+                className={`input-field ${formik.touched.email && formik.errors.email ? 'input-error' : ''
+                  }`}
                 type="email"
               />
               {formik.touched.email && formik.errors.email && (
@@ -95,7 +97,8 @@ const SignupForm = ({loading,message,error,onsubmit,success} : props) => {
                 value={formik.values.password}
                 onChange={formik.handleChange}
                 onBlur={formik.handleBlur}
-                className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg block w-full p-2.5"
+                className={`input-field ${formik.touched.password && formik.errors.password ? 'input-error' : ''
+                  }`}
                 type="password"
               />
               {formik.touched.password && formik.errors.password && (
@@ -114,7 +117,8 @@ const SignupForm = ({loading,message,error,onsubmit,success} : props) => {
                 value={formik.values.confirmPassword}
                 onChange={formik.handleChange}
                 onBlur={formik.handleBlur}
-                className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg block w-full p-2.5"
+                className={`input-field ${formik.touched.confirmPassword && formik.errors.confirmPassword ? 'input-error' : ''
+                  }`}
                 type="password"
               />
               {formik.touched.confirmPassword && formik.errors.confirmPassword && (
@@ -127,9 +131,9 @@ const SignupForm = ({loading,message,error,onsubmit,success} : props) => {
               type="submit"
               className="w-full bg-blue-500 hover:bg-blue-700 text-white font-medium rounded-lg text-sm px-5 py-2.5 text-center"
             >
-             {loading ? 'Sign in.....' : 'Create an account'}
+              {loading ? 'Sign in.....' : 'Create an account'}
             </button>
-              {/* {error && <div className="text-red-500 mt-2">{error}</div>}
+            {/* {error && <div className="text-red-500 mt-2">{error}</div>}
               {success && <div className="text-green-500 mt-2">{message}</div>} */}
           </div>
           <p

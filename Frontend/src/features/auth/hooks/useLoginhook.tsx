@@ -35,6 +35,7 @@ export const useLogin=()=>{
         else{
             setError(response.error);
         }
+        return response;
         }
         catch(err : any){
          setError(err.message || "Unexpected error occurred");

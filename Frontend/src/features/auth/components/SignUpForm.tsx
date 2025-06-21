@@ -129,8 +129,8 @@ const SignupForm = ({loading,message,error,onsubmit,success} : props) => {
             >
              {loading ? 'Sign in.....' : 'Create an account'}
             </button>
-              {error && <div className="text-red-500 mt-2">{error}</div>}
-              {success && <div className="text-green-500 mt-2">{message}</div>}
+              {/* {error && <div className="text-red-500 mt-2">{error}</div>}
+              {success && <div className="text-green-500 mt-2">{message}</div>} */}
           </div>
           <p
             className="mb-3 text-center text-sm text-gray-600 cursor-pointer hover:text-blue-800"

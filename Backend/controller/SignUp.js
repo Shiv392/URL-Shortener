@@ -6,7 +6,7 @@ const SignUpController = async (req, res) => {
     try {
         const { success, message } = await SignUp({ name: name, email: email, password: password });
         if (!success) {
-            return res.status(200).json({ success: false, message: message });
+            return res.status(404).json({ success: false, message: message });
         }
 
         return res.status(201).json({ success: true, message: message });

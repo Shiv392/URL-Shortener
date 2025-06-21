@@ -123,8 +123,8 @@ const LoginForm = ({ submit, loading, error, success, message }: Props) => {
                 </span>
                 Sign in with Google
               </button>
-              {error && <div className="text-red-500 mt-2">{error}</div>}
-              {success && <div className="text-green-500 mt-2">{message}</div>}
+              {/* {error && <div className="text-red-500 mt-2">{error}</div>}
+              {success && <div className="text-green-500 mt-2">{message}</div>} */}
             </div>
           </form>
           <p className="mt-4 text-center text-sm text-gray-600 cursor-pointer hover:text-blue-800" onClick={() => navigate('/signup')}>

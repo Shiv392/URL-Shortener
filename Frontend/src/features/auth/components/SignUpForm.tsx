@@ -11,7 +11,15 @@ const SignupSchema = Yup.object().shape({
     .required('Confirm password is required'),
 });
 
-const SignupForm = () => {
+type props = {
+  loading? : boolean
+  success? : boolean
+  message? : string
+  error?   : string | null
+  onsubmit: (formValues: { email: string; password: string,name:string }) => void;
+}
+
+const SignupForm = ({loading,message,error,onsubmit,success} : props) => {
   const navigate = useNavigate();
 
   const formik = useFormik({
@@ -24,7 +32,7 @@ const SignupForm = () => {
     validationSchema: SignupSchema,
     onSubmit: (values) => {
       console.log('Form submitted:', values);
-      // You can handle submit logic here
+      onsubmit(values);
     },
     validateOnMount:true
   });
@@ -119,8 +127,10 @@ const SignupForm = () => {
               type="submit"
               className="w-full bg-blue-500 hover:bg-blue-700 text-white font-medium rounded-lg text-sm px-5 py-2.5 text-center"
             >
-              Create an account
+             {loading ? 'Sign in.....' : 'Create an account'}
             </button>
+              {error && <div className="text-red-500 mt-2">{error}</div>}
+              {success && <div className="text-green-500 mt-2">{message}</div>}
           </div>
           <p
             className="mb-3 text-center text-sm text-gray-600 cursor-pointer hover:text-blue-800"

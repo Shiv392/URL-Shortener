@@ -8,7 +8,6 @@ const loginSchema = Yup.object().shape({
 });
 
 type Props = {
-  name?: string;
   submit: (formValues: { email: string; password: string }) => void;
   loading?: boolean;
   error?: string | null;

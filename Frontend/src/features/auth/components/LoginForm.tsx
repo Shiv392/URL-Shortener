@@ -1,14 +1,18 @@
 import { useNavigate } from 'react-router-dom';
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
+import ReCAPTCHA from 'react-google-recaptcha';
+
+const recaptcha_site_key: string = '6LdSamkrAAAAALtET5REpHStjbIj-S7NuTzwg0CR';
 
 const loginSchema = Yup.object().shape({
-  email: Yup.string().required('Email is required').email('invalid email').matches(/^[^\s@]+@[^\s@]+\.[^\s@]+$/,'invalid email'),
-  password: Yup.string().required('Password is required')
+  email: Yup.string().required('Email is required').email('invalid email').matches(/^[^\s@]+@[^\s@]+\.[^\s@]+$/, 'invalid email'),
+  password: Yup.string().required('Password is required'),
+  captcha_token: Yup.string().required('captcha is required')
 });
 
 type Props = {
-  submit: (formValues: { email: string; password: string }) => void;
+  submit: (formValues: { email: string, password: string, captcha_token: string }) => void;
   loading?: boolean;
   error?: string | null;
   success?: boolean;
@@ -16,11 +20,13 @@ type Props = {
 };
 
 const LoginForm = ({ submit, loading, error, success, message }: Props) => {
+
   const navigate = useNavigate();
   const login_formik = useFormik({
     initialValues: {
       email: '',
-      password: ''
+      password: '',
+      captcha_token: ''
     },
     validationSchema: loginSchema,
     onSubmit: (values) => {
@@ -29,6 +35,7 @@ const LoginForm = ({ submit, loading, error, success, message }: Props) => {
     },
     validateOnMount: true
   });
+
 
   return (
     <section>
@@ -55,9 +62,8 @@ const LoginForm = ({ submit, loading, error, success, message }: Props) => {
                     value={login_formik.values.email}
                     onChange={login_formik.handleChange}
                     onBlur={login_formik.handleBlur}
-                    className={`input-field ${
-                     login_formik.touched.email && login_formik.errors.email ? 'input-error' : ''
-                     }`}
+                    className={`input-field ${login_formik.touched.email && login_formik.errors.email ? 'input-error' : ''
+                      }`}
                   />
                   {
                     login_formik.touched.email && login_formik.errors.email && (
@@ -88,15 +94,22 @@ const LoginForm = ({ submit, loading, error, success, message }: Props) => {
                     onChange={login_formik.handleChange}
                     onBlur={login_formik.handleBlur}
                     value={login_formik.values.password}
-                    className={`input-field ${
-                     login_formik.touched.password && login_formik.errors.password ? 'input-error' : ''
-                     }`}
+                    className={`input-field ${login_formik.touched.password && login_formik.errors.password ? 'input-error' : ''
+                      }`}
                   />
                   {
                     login_formik.touched.password && login_formik.errors.password && (
                       <div className='text-red-400 text-sm mt-1'>{login_formik.errors.password}</div>
                     )
                   }
+                </div>
+
+                <div className="mt-2">
+                  <ReCAPTCHA
+                    sitekey={recaptcha_site_key}
+                    onChange={(token:string) => login_formik.setFieldValue('captcha_token', token)}
+                    onExpired={() => login_formik.setFieldValue('captcha_token', '')}
+                  />
                 </div>
               </div>
               <div>

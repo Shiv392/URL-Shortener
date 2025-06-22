@@ -3,7 +3,9 @@ const routes = express.Router();
 const {LoginController} = require('../controller/Login.js');
 const {SignUpController} = require('../controller/SignUp.js');
 
-routes.post('/login',LoginController);
+const {verify_recaptcha} = require('../middleware/verify_recaptcha.js');
+
+routes.post('/login',verify_recaptcha,LoginController);
 routes.post('/signup',SignUpController);
 
 module.exports={routes};

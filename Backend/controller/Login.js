@@ -1,9 +1,9 @@
 const {Login} = require('../models/Login.js'); 
 
 const LoginController=async(req,res)=>{
-    const {email,password} = req.body;
+    const {email,password,captcha_token} = req.body;
   try{
-   const {success,message,user} = await Login({email:email,password:password});
+   const {success,message,user} = await Login({email:email,password:password,captcha_token:captcha_token});
    if(!success){
     return res.status(404).json({success:false,message:message});
    }

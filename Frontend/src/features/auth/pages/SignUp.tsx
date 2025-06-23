@@ -6,7 +6,7 @@ const SignUp=()=>{
     const {show_success,show_error} = useNotification();
     const {signup,data,loading,error} = useSignup();
 
-    const onSubmit=async(form_values:{name:string,email:string,password:string})=>{
+    const onSubmit=async(form_values:{name:string,email:string,password:string,captha_token:string})=>{
         const res = await signup(form_values);
         console.log('signup res---->',res);
         if(res?.success){

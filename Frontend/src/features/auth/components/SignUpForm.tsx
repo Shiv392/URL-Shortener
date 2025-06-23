@@ -1,14 +1,18 @@
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
 import { useNavigate } from 'react-router-dom';
+import ReCAPTCHA from 'react-google-recaptcha';
+
+const recaptcha_site_key: string = '6LdSamkrAAAAALtET5REpHStjbIj-S7NuTzwg0CR';
 
 const SignupSchema = Yup.object().shape({
   name: Yup.string().required('Name is required').max(10, 'Name can’t be more than 10 characters'),
-  email: Yup.string().email('Invalid email').required('Email is required').matches(/^[^\s@]+@[^\s@]+\.[^\s@]+$/,'invalid email'),
+  email: Yup.string().email('Invalid email').required('Email is required').matches(/^[^\s@]+@[^\s@]+\.[^\s@]+$/, 'invalid email'),
   password: Yup.string().required('Password is required'),
   confirmPassword: Yup.string()
     .oneOf([Yup.ref('password')], 'Passwords must match')
     .required('Password is required'),
+  captcha_token: Yup.string().required('reCaptha is required')
 });
 
 type props = {
@@ -16,7 +20,7 @@ type props = {
   success?: boolean
   message?: string
   error?: string | null
-  onsubmit: (formValues: { email: string; password: string, name: string }) => void;
+  onsubmit: (formValues: { email: string; password: string, name: string, captha_token: string }) => void;
 }
 
 const SignupForm = ({ loading, message, error, onsubmit, success }: props) => {
@@ -28,6 +32,7 @@ const SignupForm = ({ loading, message, error, onsubmit, success }: props) => {
       email: '',
       password: '',
       confirmPassword: '',
+      captha_token: ''
     },
     validationSchema: SignupSchema,
     onSubmit: (values) => {
@@ -124,6 +129,15 @@ const SignupForm = ({ loading, message, error, onsubmit, success }: props) => {
               {formik.touched.confirmPassword && formik.errors.confirmPassword && (
                 <div className="text-red-500 text-sm mt-1">{formik.errors.confirmPassword}</div>
               )}
+            </div>
+
+            {/* reCaptcha Field  */}
+            <div className="mt-2">
+              <ReCAPTCHA
+                sitekey={recaptcha_site_key}
+                onChange={(token: string) => formik.setFieldValue('captcha_token', token)}
+                onExpired={() => formik.setFieldValue('captcha_token', '')}
+              />
             </div>
 
             <button

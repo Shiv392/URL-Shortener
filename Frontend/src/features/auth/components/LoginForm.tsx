@@ -85,7 +85,7 @@ const LoginForm = ({ submit, loading, error, success, message }: Props) => {
                     Forgot password?
                   </a>
                 </div>
-                <div className="mt-2">
+                <div className="mt-2 mb-6">
                   <input
                     id="password"
                     name="password"

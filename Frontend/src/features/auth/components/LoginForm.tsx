@@ -2,8 +2,7 @@ import { useNavigate } from 'react-router-dom';
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
 import ReCAPTCHA from 'react-google-recaptcha';
-
-const recaptcha_site_key: string = '6LdSamkrAAAAALtET5REpHStjbIj-S7NuTzwg0CR';
+import { recaptcha_site_key } from '../../../controller/sitekey_controller';
 
 const loginSchema = Yup.object().shape({
   email: Yup.string().required('Email is required').email('invalid email').matches(/^[^\s@]+@[^\s@]+\.[^\s@]+$/, 'invalid email'),

@@ -2,8 +2,7 @@ import { useFormik } from 'formik';
 import * as Yup from 'yup';
 import { useNavigate } from 'react-router-dom';
 import ReCAPTCHA from 'react-google-recaptcha';
-
-const recaptcha_site_key: string = '6LdSamkrAAAAALtET5REpHStjbIj-S7NuTzwg0CR';
+import { recaptcha_site_key } from '../../../controller/sitekey_controller';
 
 const SignupSchema = Yup.object().shape({
   name: Yup.string().required('Name is required').max(10, 'Name can’t be more than 10 characters'),

@@ -2,8 +2,6 @@ const axios = require('axios');
 const dotenv = require('dotenv');
 dotenv.config();
 
-const recaptcha_secret_key = '6LdSamkrAAAAABkFOuMgo-WcYWAoZVBtlQ8gX8wC';
-
 const verify_recaptcha = async(req,res,next)=>{
     const {captcha_token} = req.body;
     if(!captcha_token){

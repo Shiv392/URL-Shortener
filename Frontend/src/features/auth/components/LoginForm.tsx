@@ -3,6 +3,7 @@ import { useFormik } from 'formik';
 import * as Yup from 'yup';
 import ReCAPTCHA from 'react-google-recaptcha';
 import { recaptcha_site_key } from '../../../controller/sitekey_controller';
+import { useRef } from 'react';
 
 const loginSchema = Yup.object().shape({
   email: Yup.string().required('Email is required').email('invalid email').matches(/^[^\s@]+@[^\s@]+\.[^\s@]+$/, 'invalid email'),
@@ -20,6 +21,7 @@ type Props = {
 
 const LoginForm = ({ submit, loading, error, success, message }: Props) => {
 
+  const recaptcha_ref = useRef<ReCAPTCHA>(null);
   const navigate = useNavigate();
   const login_formik = useFormik({
     initialValues: {
@@ -31,6 +33,10 @@ const LoginForm = ({ submit, loading, error, success, message }: Props) => {
     onSubmit: (values) => {
       console.log('login form details ---------->', values);
       submit(values);
+      if(recaptcha_ref.current){
+        recaptcha_ref.current.reset();
+        login_formik.setFieldValue('captcha_token','');
+      }
     },
     validateOnMount: true
   });
@@ -105,6 +111,7 @@ const LoginForm = ({ submit, loading, error, success, message }: Props) => {
 
                 <div className="mt-2">
                   <ReCAPTCHA
+                    ref={recaptcha_ref}
                     sitekey={recaptcha_site_key}
                     onChange={(token:string) => login_formik.setFieldValue('captcha_token', token)}
                     onExpired={() => login_formik.setFieldValue('captcha_token', '')}
@@ -139,8 +146,6 @@ const LoginForm = ({ submit, loading, error, success, message }: Props) => {
                 </span>
                 Sign in with Google
               </button>
-              {/* {error && <div className="text-red-500 mt-2">{error}</div>}
-              {success && <div className="text-green-500 mt-2">{message}</div>} */}
             </div>
           </form>
           <p className="mt-4 text-center text-sm text-gray-600 cursor-pointer hover:text-blue-800" onClick={() => navigate('/signup')}>

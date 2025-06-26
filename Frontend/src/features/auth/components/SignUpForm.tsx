@@ -3,6 +3,7 @@ import * as Yup from 'yup';
 import { useNavigate } from 'react-router-dom';
 import ReCAPTCHA from 'react-google-recaptcha';
 import { recaptcha_site_key } from '../../../controller/sitekey_controller';
+import { useRef } from 'react';
 
 const SignupSchema = Yup.object().shape({
   name: Yup.string().required('Name is required').max(10, 'Name can’t be more than 10 characters'),
@@ -23,6 +24,8 @@ type props = {
 }
 
 const SignupForm = ({ loading, message, error, onsubmit, success }: props) => {
+
+  const recaptcha_ref = useRef<ReCAPTCHA>(null);
   const navigate = useNavigate();
 
   const formik = useFormik({
@@ -37,6 +40,10 @@ const SignupForm = ({ loading, message, error, onsubmit, success }: props) => {
     onSubmit: (values) => {
       console.log('Form submitted:', values);
       onsubmit(values);
+      if(recaptcha_ref.current){
+        recaptcha_ref.current.reset();
+        formik.setFieldValue('captcha_token','');
+      }
     },
     validateOnMount: true
   });
@@ -133,6 +140,7 @@ const SignupForm = ({ loading, message, error, onsubmit, success }: props) => {
             {/* reCaptcha Field  */}
             <div className="mt-2">
               <ReCAPTCHA
+                ref={recaptcha_ref}
                 sitekey={recaptcha_site_key}
                 onChange={(token: string) => formik.setFieldValue('captcha_token', token)}
                 onExpired={() => formik.setFieldValue('captcha_token', '')}

@@ -4,6 +4,7 @@ import AppRoutes from './routes/index.tsx';
 import { NotificationProvider } from './features/common/context/notificationcontext.tsx';
 import Notification from './features/common/components/notification/notification.tsx';
 import { LoaderProvider } from './features/common/context/loadercontext.tsx';
+import Loader from './features/common/components/loader/loader.tsx';
 
 function App() {
   return (
@@ -12,6 +13,7 @@ function App() {
     <>
    <AppRoutes />
    <Notification />
+   <Loader />
    </>
     </LoaderProvider>
    </NotificationProvider>

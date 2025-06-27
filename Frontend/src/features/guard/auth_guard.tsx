@@ -1,4 +1,5 @@
 import React, { Children, useEffect } from 'react';
+import { useCookies } from 'react-cookie';
 import { useNavigate } from 'react-router-dom';
 
 type Props = {
@@ -6,9 +7,12 @@ type Props = {
 };
 
 const AuthGuard = ({ children }: Props) => {
+
+    const [cookies] = useCookies(['auth_token']);
     
     const navigate = useNavigate();
-    const token = localStorage.getItem('token');
+    const token = cookies.auth_token;
+
 
     useEffect(() => {
         if (!token) {

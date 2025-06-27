@@ -5,10 +5,12 @@ import { NotificationProvider } from './features/common/context/notificationcont
 import Notification from './features/common/components/notification/notification.tsx';
 import { LoaderProvider } from './features/common/context/loadercontext.tsx';
 import Loader from './features/common/components/loader/loader.tsx';
+import {CookiesProvider} from 'react-cookie';
 
 function App() {
   return (
-   <NotificationProvider>
+   <CookiesProvider>
+    <NotificationProvider>
     <LoaderProvider>
     <>
    <AppRoutes />
@@ -17,6 +19,7 @@ function App() {
    </>
     </LoaderProvider>
    </NotificationProvider>
+   </CookiesProvider>
   )
 }
 

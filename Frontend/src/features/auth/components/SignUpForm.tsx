@@ -2,7 +2,7 @@ import { useFormik } from 'formik';
 import * as Yup from 'yup';
 import { useNavigate } from 'react-router-dom';
 import ReCAPTCHA from 'react-google-recaptcha';
-import { recaptcha_site_key } from '../../../controller/sitekey_controller';
+// import { recaptcha_site_key } from '../../../controller/sitekey_controller';
 import { useRef } from 'react';
 
 const SignupSchema = Yup.object().shape({
@@ -27,6 +27,7 @@ const SignupForm = ({ loading, message, error, onsubmit, success }: props) => {
 
   const recaptcha_ref = useRef<ReCAPTCHA>(null);
   const navigate = useNavigate();
+  const recaptcha_site_key =  import.meta.env.VITE_RECAPTCHA_SITE_KEY;
 
   const formik = useFormik({
     initialValues: {

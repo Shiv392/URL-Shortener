@@ -1,4 +1,4 @@
-const mysql = require('../db/dbConnection.js');
+const mysql = require('../../db/dbConnection.js');
 const jwt = require('jsonwebtoken');
 const bcrypt = require('bcrypt');
 const dotenv = require('dotenv');

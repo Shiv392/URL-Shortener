@@ -1,4 +1,4 @@
-const {Login} = require('../models/authentication/Login.js'); 
+const {Login} = require('../../models/authentication/Login'); 
 
 const LoginController=async(req,res)=>{
     const {email,password,captcha_token} = req.body;

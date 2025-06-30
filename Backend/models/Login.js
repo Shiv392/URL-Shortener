@@ -1,6 +1,8 @@
 const mysql = require('../db/dbConnection.js');
 const jwt = require('jsonwebtoken');
 const bcrypt = require('bcrypt');
+const dotenv = require('dotenv');
+dotenv.config();
 
 const Login=({email,password})=>{
 return new Promise((resolve,reject)=>{
@@ -20,7 +22,7 @@ return new Promise((resolve,reject)=>{
             return resolve({success:false,message:'Password not match',user:[]})
         }
         else{
-            const jwttoken=jwt.sign({userId:user[0].userid,email:user[0].email},'Shiv@39231100',{expiresIn:'1hr'});
+            const jwttoken=jwt.sign({userId:user[0].userid,email:user[0].email}, process.env.JWT_SECRET_KEY, {expiresIn:'1hr'});
             return resolve({success:true,message:'Login Successfull',user:{email:matchedUser.email,userId:matchedUser.userid,token:jwttoken}})
         }
         })

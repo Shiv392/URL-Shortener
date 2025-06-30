@@ -1,6 +1,5 @@
-
-
 export const controller : Record<string,string> =  {
      login : '/login',
-     signup : '/signup'
+     signup : '/signup',
+     urls : '/urls'
 }

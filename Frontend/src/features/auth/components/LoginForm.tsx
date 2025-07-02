@@ -24,8 +24,7 @@ const LoginForm = ({ submit, loading, error, success, message }: Props) => {
   const recaptcha_ref = useRef<ReCAPTCHA>(null);
   const navigate = useNavigate();
   const recaptcha_site_key = import.meta.env.VITE_RECAPTCHA_SITE_KEY;
-  console.log('recaptcha site key---->',recaptcha_site_key)
-
+  
   const login_formik = useFormik({
     initialValues: {
       email: '',

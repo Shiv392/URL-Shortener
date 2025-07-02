@@ -12,11 +12,11 @@ function App() {
    <CookiesProvider>
     <NotificationProvider>
     <LoaderProvider>
-    <>
+   <BrowserRouter>
    <AppRoutes />
+   </BrowserRouter>
    <Notification />
    <Loader />
-   </>
     </LoaderProvider>
    </NotificationProvider>
    </CookiesProvider>

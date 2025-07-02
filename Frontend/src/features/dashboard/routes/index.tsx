@@ -1,14 +1,15 @@
 import { lazy } from "react";
-import { Route,Routes } from "react-router-dom";
+import {type RouteObject } from "react-router-dom";
+import AuthGuard from "../../guard/auth_guard.tsx";
 
 const Dashboard = lazy(()=> import('../pages/dashboard.tsx'));
 
-const DashboardRoute=()=>{
-    return(
-        <Routes>
-            <Route path='/app' element={<Dashboard />}></Route>
-        </Routes>
-    )
-}
-
-export default DashboardRoute;
+export const DashboardRoute : RouteObject[] =[
+    {
+        path:'/app', element : (
+            <AuthGuard>
+                <Dashboard />
+            </AuthGuard>
+        )
+    }
+]

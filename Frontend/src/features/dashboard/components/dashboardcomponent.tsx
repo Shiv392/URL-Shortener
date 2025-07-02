@@ -1,3 +1,4 @@
+import { useFormik } from 'formik';
 import React, { useState } from 'react';
 
 const DashboardComponent = () => {
@@ -17,6 +18,15 @@ const DashboardComponent = () => {
     },
   ]);
 
+  const form = useFormik({
+    initialValues:{
+      urls : ''
+    },
+    onSubmit : (values) => {
+      console.log('values----->');
+    },
+  })
+
   const handleShorten = () => {
     // Replace this with actual backend call
     const newUrl = {
@@ -34,14 +44,18 @@ const DashboardComponent = () => {
       <div className="max-w-4xl mx-auto">
         <h1 className="text-3xl font-bold mb-6 text-gray-800">URL Shortener Dashboard</h1>
 
-        {/* Input Box */}
+        <form onSubmit={form.handleSubmit}>
+           {/* Input Box */}
         <div className="flex gap-2 mb-6">
           <input
             type="text"
+            id="urls"
+            name = "urls"
             className="flex-1 p-3 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring focus:ring-blue-200"
             placeholder="Enter original URL..."
-            value={url}
-            onChange={(e) => setUrl(e.target.value)}
+            value={form.values.urls}
+            onChange={form.handleChange}
+            onBlur={form.handleBlur}
           />
           <button
             className="bg-blue-600 text-white px-5 py-3 rounded-md hover:bg-blue-700 transition"
@@ -49,7 +63,8 @@ const DashboardComponent = () => {
           >
             Shorten URL
           </button>
-        </div>
+        </div> 
+        </form>
 
         {/* URL Table */}
         <div className="overflow-x-auto bg-white shadow rounded-lg">

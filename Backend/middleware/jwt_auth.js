@@ -5,8 +5,7 @@ dotenv.config();
 const JWT_Auth = (req,res,next)=>{
 console.log('req----->',req.headers);
 const authHeaders = req.headers['authorization'];
-const Auth_Token = authHeaders && authHeaders.split(' ')[1]; 
-console.log('auth token--------->',Auth_Token);
+const Auth_Token = authHeaders;
 
 if(!Auth_Token){
     return res.status(403).json({

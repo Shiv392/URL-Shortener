@@ -13,6 +13,8 @@ const helmet = require('helmet');
 
 const {JWT_Auth} = require('./middleware/jwt_auth.js');
 const {URL_Route} = require('./routes/dashboard/urlroutes.js');
+const {google_auth_route} = require('./routes/oauthorization/google_auth_redirect.js');
+const {google_callback_route} = require('./routes/oauthorization/google_auth_callback.js')
 
 app.use(cors());
 app.use(bodyparser.json());
@@ -21,9 +23,11 @@ app.use(helmet())
 app.use(rateLimiter);
 app.use(auth_routes);
 
-app.use(JWT_Auth);
+// app.use(JWT_Auth);
 
 app.use(URL_Route);
+app.use(google_auth_route);
+app.use(google_callback_route);
 
 mysqlConnection.connect((err)=>{
     if(err) console.log('error while connecting to databaes',err);

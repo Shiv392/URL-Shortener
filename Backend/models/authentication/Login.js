@@ -1,8 +1,6 @@
 const mysql = require('../../db/dbConnection.js');
 const jwt = require('jsonwebtoken');
 const bcrypt = require('bcrypt');
-const dotenv = require('dotenv');
-dotenv.config();
 
 const Login=({email,password})=>{
 return new Promise((resolve,reject)=>{

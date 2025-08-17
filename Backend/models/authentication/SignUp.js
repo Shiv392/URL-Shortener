@@ -1,7 +1,5 @@
 const mysql = require('../../db/dbConnection.js');
 const bcrypt = require('bcrypt');
-const dotenv = require('dotenv');
-dotenv.config();
 
 const SignUp=({name,email,password})=>{
 

@@ -7,7 +7,6 @@ return new Promise((resolve,reject)=>{
     const findEmailQuery=`SELECT * FROM User WHERE email=?`;
     mysql.query(findEmailQuery,[email],(err,user)=>{
         if(err){
-            console.log('email find error----->',err);
             return reject(err);
         }
         if(user.length==0){ //no user found with this email

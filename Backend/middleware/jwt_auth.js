@@ -3,7 +3,6 @@ const dotenv = require('dotenv');
 dotenv.config();
 
 const JWT_Auth = (req,res,next)=>{
-console.log('req----->',req.headers);
 const authHeaders = req.headers['authorization'];
 const Auth_Token = authHeaders;
 

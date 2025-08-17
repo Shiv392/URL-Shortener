@@ -2,7 +2,10 @@ const express = require('express');
 const cors = require('cors');
 const bodyparser = require('body-parser');
 const app = express();
-const port = 8855;
+const port = 8800;
+const dotenv = require('dotenv');
+dotenv.config();
+
 const mysqlConnection = require('./db/dbConnection.js');
 const {auth_routes} = require('./routes/authentication/user.js');
 const {rateLimiter} = require('./middleware/rate-limiter.js');
@@ -24,7 +27,6 @@ app.use(URL_Route);
 
 mysqlConnection.connect((err)=>{
     if(err) console.log('error while connecting to databaes',err);
-    else console.log('database connection successfull');
 })
 
 app.listen(port,()=>{

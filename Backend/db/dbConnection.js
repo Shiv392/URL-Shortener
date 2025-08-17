@@ -1,6 +1,4 @@
 const mysql = require('mysql');
-const dotenv = require('dotenv');
-dotenv.config();
 
 const mysqlConnection=mysql.createConnection({
     database:process.env.DATABASE_NAME,
